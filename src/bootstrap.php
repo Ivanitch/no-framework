@@ -6,6 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $environment = 'development';
 
+// Error Handler
 $whoops = new \Whoops\Run;
 if ($environment !== 'production') {
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
@@ -16,4 +17,15 @@ if ($environment !== 'production') {
 }
 $whoops->register();
 
-throw new \Exception;
+// Http
+$request = new \Http\HttpRequest($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
+$response = new \Http\HttpResponse;
+
+foreach ($response->getHeaders() as $header) {
+    header($header, false);
+}
+
+$content = '<h1>Hello World</h1>';
+$response->setContent($content);
+
+echo $response->getContent();
