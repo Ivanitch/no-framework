@@ -34,6 +34,11 @@ $routeDefinitionCallback = function (\FastRoute\RouteCollector $r) {
     }
 };
 
+$injector = require_once __DIR__ . '/../config/dependencies.php';
+
+$request = $injector->make('Http\HttpRequest');
+$response = $injector->make('Http\HttpResponse');
+
 $dispatcher = \FastRoute\simpleDispatcher($routeDefinitionCallback);
 
 $routeInfo = $dispatcher->dispatch($request->getMethod(), $request->getPath());
@@ -50,7 +55,7 @@ switch ($routeInfo[0]) {
         $className = $routeInfo[1][0];
         $method = $routeInfo[1][1];
         $vars = $routeInfo[2];
-        $class = new $className($response);
+        $class = $injector->make($className);
         $class->$method($vars);
         break;
 }
