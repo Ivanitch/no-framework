@@ -1,7 +1,5 @@
-<?php
-
-declare(strict_types=1);
-
-require_once __DIR__ . '/../vendor/autoload.php';
+<?php declare(strict_types=1);
 
 require __DIR__ . '/../src/bootstrap.php';
+
+echo 'Hello World!';
