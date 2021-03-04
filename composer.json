@@ -1,0 +1,24 @@
+{
+    "name": "ivanitch/no-framework",
+    "description": "Simple php component framework",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergey Ivamov",
+            "email": "amurweb@gmail.com",
+            "role": "Creator"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=7.4.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
