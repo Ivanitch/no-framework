@@ -8,4 +8,4 @@ error_reporting(E_ALL);
 
 const ENVIRONMENT = "dev"; // dev OR prod
 
-require __DIR__ . '/../src/bootstrap.php';
+require dirname(__DIR__) . '/bootstrap/init.php';

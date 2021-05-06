@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
+use DI\Container;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 new \Framework\ErrorHandler(ENVIRONMENT);
 
+/** @var Container $container */
+$container = require_once __DIR__ . '/../bootstrap/container.php';
+
+
 // Http
-$request = new \Http\HttpRequest($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
-$response = new \Http\HttpResponse;
+$request = $container->get('Request');
+$response = $container->get('Response');
 
 foreach ($response->getHeaders() as $header) {
     header($header, false);
 }
 
-
 // Router
-$routeDefinitionCallback = function (\FastRoute\RouteCollector $r) {
-    $routes = require_once __DIR__ . '/../config/routes.php';
+$routeDefinitionCallback = function (\FastRoute\RouteCollector $r) use ($container) {
+    $routes = $container->get('urlManager');
     foreach ($routes as $route) {
         $r->addRoute($route[0], $route[1], $route[2]);
     }
 };
-
-$injector = require_once __DIR__ . '/../config/dependencies.php';
-
-$request = $injector->make('Http\HttpRequest');
-$response = $injector->make('Http\HttpResponse');
 
 $dispatcher = \FastRoute\simpleDispatcher($routeDefinitionCallback);
 
@@ -44,7 +44,10 @@ switch ($routeInfo[0]) {
         $className = $routeInfo[1][0];
         $method = $routeInfo[1][1];
         $vars = $routeInfo[2];
-        $class = $injector->make($className);
+        $container->set('className', function () use ($className, $request, $response) {
+            return new $className($request, $response);
+        });
+        $class = $container->get('className');
         $class->$method($vars);
         break;
 }
