@@ -4,30 +4,24 @@ declare(strict_types = 1);
 
 namespace App\controllers;
 
-use Http\Request;
-use Http\Response;
+use Laminas\Diactoros\Response\HtmlResponse;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class HomeController
 {
-    private Request $request;
-    private Response $response;
-
-    public function __construct(Request $request, Response $response)
+    public function indexAction(ServerRequestInterface $request): ResponseInterface
     {
-        $this->request = $request;
-        $this->response = $response;
+        $html = '<h1>Home page</h1>';
+
+        return new HtmlResponse($html);
     }
 
-    public function show()
+    public function aboutAction(ServerRequestInterface $request): ResponseInterface
     {
-        $content = '<h1>Home page</h1>';
-        $content .= 'Hello ' . $this->request->getParameter('name', 'guest');
-        $this->response->setContent($content);
-    }
+        $html = '<h1>About page</h1>';
 
-    public function about()
-    {
-        $this->response->setContent('About page');
+        return new HtmlResponse($html);
     }
 
 }

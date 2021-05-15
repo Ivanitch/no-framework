@@ -15,5 +15,6 @@ $builder->addDefinitions($dependencies);
 try {
     return $builder->build();
 } catch (Exception $e) {
+    // TODO: Write to logs
     echo $e->getMessage();
 }
