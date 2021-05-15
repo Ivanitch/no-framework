@@ -3,9 +3,10 @@
     "description": "Simple php component framework",
     "type": "project",
     "license": "MIT",
+    "minimum-stability": "stable",
     "authors": [
         {
-            "name": "Sergey Ivamov",
+            "name": "Sergey Ivanov",
             "email": "amurweb@gmail.com",
             "role": "Creator"
         }
@@ -15,6 +16,7 @@
     },
     "require": {
         "php": "^7.4|^8.0",
+        "ext-json": "*",
         "laminas/laminas-diactoros": "^2.2",
         "laminas/laminas-httphandlerrunner": "^1.1",
         "league/route": "^5.0",
@@ -22,12 +24,22 @@
     },
     "require-dev": {
         "filp/whoops": "^2.9",
-        "symfony/var-dumper": "^5.2"
+        "phpunit/phpunit": "^9.5",
+        "symfony/var-dumper": "^5.2",
+        "roave/security-advisories": "dev-master"
     },
     "autoload": {
         "psr-4": {
             "App\\": "src/App/",
             "Framework\\": "src/Framework/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit --colors=always"
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\controllers\HomeController;
+use App\controllers\SiteController;
 use DI\Container;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
@@ -17,8 +17,9 @@ $container = require_once __DIR__ . '/../bootstrap/container.php';
 
 $router = new League\Route\Router;
 
-$router->map('GET', '/', [HomeController::class, 'indexAction']);
-$router->map('GET', '/about', [HomeController::class, 'aboutAction']);
+$router->map('GET', '/', [SiteController::class, 'homeAction']);
+$router->map('GET', '/about', [SiteController::class, 'aboutAction']);
+$router->map('GET', '/hello', [SiteController::class, 'helloAction']);
 
 // Request
 $request = $container->get('Request');
