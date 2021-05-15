@@ -15,6 +15,7 @@ class ErrorHandler
         } else {
             $whoops->pushHandler(function($e){
                 echo 'Todo: Friendly error page and send an email to the developer';
+                // TODO: And Write to logs
             });
         }
         $whoops->register();
