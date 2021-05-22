@@ -2,37 +2,33 @@
 
 declare(strict_types=1);
 
-
 use DI\Container;
+use Framework\ErrorHandler;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
+use Psr\Http\Message\ServerRequestInterface;
 
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-new \Framework\ErrorHandler(ENVIRONMENT_APP);
+new ErrorHandler(ENVIRONMENT_APP);
 
+// Container
 /** @var Container $container */
 $container = require_once __DIR__ . '/../bootstrap/container.php';
 
-$router = new League\Route\Router;
-
-$router->map('GET', '/', [App\controllers\SiteController::class, 'homeAction']);
-$router->map('GET', '/about', [App\controllers\SiteController::class, 'aboutAction']);
-$router->map('GET', '/hello', [App\controllers\SiteController::class, 'helloAction']);
-
-$router->get('/blog', [App\controllers\BlogController::class, 'indexAction']);
-$router->get('/blog/{slug:[\w\-]+}', [App\controllers\BlogController::class, 'viewAction']);
-
-// Request
-$request = $container->get('Request');
+// Router
+/** @var League\Route\Router $router */
+$router = require_once __DIR__ . '/router.php';
 
 try {
+    // Request
+    /** @var ServerRequestInterface $request $request */
+    $request = $container->get('Request');
     $response = $router->dispatch($request);
 } catch (Exception $e) {
     $response = new HtmlResponse('Undefined page', 404);
 }
-
 
 // Response
 $emitter = new SapiEmitter();
