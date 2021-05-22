@@ -33,7 +33,7 @@ class SiteControllerTest extends TestCase
         $controller = new SiteController();
 
         $request = (new ServerRequest())
-            ->withQueryParams(['name' => 'John']);;
+            ->withQueryParams(['name' => 'John']);
 
         $response = $controller->helloAction($request);
 
