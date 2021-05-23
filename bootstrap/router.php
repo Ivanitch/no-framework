@@ -9,6 +9,8 @@ $router->map('GET', '/hello', [App\Controllers\SiteController::class, 'helloActi
 $router->get('/blog', [App\Controllers\BlogController::class, 'indexAction']);
 $router->get('/blog/{slug:[\w\-]+}', [App\Controllers\BlogController::class, 'viewAction']);
 
+$router->get('/contact', \App\Action\Contact::class);
+
 
 // End routes
 return $router;
