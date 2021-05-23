@@ -2,7 +2,7 @@
 
 namespace Tests\App\controllers;
 
-use App\controllers\SiteController;
+use App\Controllers\SiteController;
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
 

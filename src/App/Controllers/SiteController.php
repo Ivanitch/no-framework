@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\controllers;
+namespace App\Controllers;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
